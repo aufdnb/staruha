@@ -31,7 +31,7 @@ jobs:
           make dist
 
       - name: Build Image
-        run: docker build -t registry.digitalocean.com/aufdnb/staruha:latest .
+        run: docker build -t registry.digitalocean.com/aufdnb/krisa:staruha .
 
       - name: Install doctl                 # install the doctl on the runner
         uses: digitalocean/action-doctl@v2
@@ -42,7 +42,7 @@ jobs:
       - name: Login into docker and push
         run: |
           doctl registry login
-          docker push registry.digitalocean.com/aufdnb/staruha:latest
+          docker push registry.digitalocean.com/aufdnb/krisa:staruha
 
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials

@@ -14,7 +14,7 @@ spec:
       restartPolicy: OnFaillue
       containers:
         - name: staruha-wsb
-          image: registry.digitalocean.com/aufdnb/staruha:latest
+          image: registry.digitalocean.com/aufdnb/krisa:staruha
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
