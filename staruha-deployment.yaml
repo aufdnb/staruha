@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: CronJob
+metadata:
+  name: staruha
+  labels:
+    app: staruha
+spec:
+  schedule: "0 14 * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: periodic-batch-jobs
+    spec:
+      restartPolicy: OnFaillue
+      containers:
+        - name: staruha-wsb
+          image: registry.digitalocean.com/aufdnb/staruha:latest
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: digital-ocean-s3
+                  key: aws-access-key-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: digital-ocean-s3
+                  key: aws-secret-access-key
+            - name: BUCKET_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: krisa-store
+                  key: bucket-name
+            - name: SLACK_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: slack-staruha
+                  key: slack-api
